@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Image, View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather'
 import { useNavigation } from '@react-navigation/native';
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/mobile'
+
 import logoImg from '../../assets/logo.png';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -14,7 +17,13 @@ import {
 } from './styles';
 
 const SigIn: React.FC = () => {
+  const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
+
+  const handleSignUp = useCallback((data:object)=>{
+    console.log(data)
+  }, []);
+  
   return (
     <>
       <KeyboardAvoidingView
@@ -28,17 +37,19 @@ const SigIn: React.FC = () => {
             <View>
               <Title>Crie sua conta</Title>
             </View>
+            <Form ref={formRef} onSubmit={handleSignUp}>
 
-            <Input name="name" icon="user" placeholder="Nome" />
-            <Input name="email" icon="mail" placeholder="E-mail" />
-            <Input name="password" icon="lock" placeholder="Senha" />
-            <Button
-              onPress={() => {
-                console.log('clicou');
-              }}
-            >
-              Cadastrar
-            </Button>
+              <Input name="name" icon="user" placeholder="Nome" />
+              <Input name="email" icon="mail" placeholder="E-mail" />
+              <Input name="password" icon="lock" placeholder="Senha" />
+              <Button
+                onPress={() => {
+                   formRef.current?.submitForm()
+                }}
+              >
+                Cadastrar
+              </Button>
+            </Form>
 
           </Container>
         </ScrollView>
