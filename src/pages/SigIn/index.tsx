@@ -1,6 +1,8 @@
 import React from 'react';
 import { Image, View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather'
+import Icon from 'react-native-vector-icons/Feather';
+import { useNavigation } from '@react-navigation/native';
+
 
 import logoImg from '../../assets/logo.png';
 import Input from '../../components/Input';
@@ -16,6 +18,7 @@ import {
 } from './styles';
 
 const SigIn: React.FC = () => {
+  const navigation = useNavigation();
   return (
     <>
       <KeyboardAvoidingView 
@@ -51,9 +54,7 @@ const SigIn: React.FC = () => {
           </Container>
         </ScrollView>
       </KeyboardAvoidingView>
-      <CreateAccountButton onPress={() => {
-        console.log('clicou');
-      }}>
+      <CreateAccountButton onPress={() => navigation.navigate('SignUp')}>
         <Icon name="log-in" size={20} color="#ff9000" />
         <CreateAccountText>Criar uma conta</CreateAccountText>
       </CreateAccountButton>
